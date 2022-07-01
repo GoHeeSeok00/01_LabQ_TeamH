@@ -56,8 +56,9 @@
 
 
 ## 🛠 DB Modeling
-![Untitled](https://user-images.githubusercontent.com/95380638/176635745-467ca0d2-c75f-44b5-9607-28202a1dd657.png)
+![랩큐_ERD_하수관 정보 테이블 추가](https://user-images.githubusercontent.com/96563183/176884532-b78ac91b-9395-4a62-a8b0-54fb9cc431a5.png)
 - **SewerPipe 모델** : 서울시 하수관로 수위 현황 데이터 저장 
+- **SewerPipeBoxInfo 모델** : IDN(하수관로 식별 코드)와 박스 높이 저장, SewerPipe와 1:N 관계 
 - **Rainfall 모델** : 서울시 강우량 정보 데이터 저장
 - **GuName 모델** : GUBN(구분코드)와 해당하는 서울시 자치구 이름 저장, SewerPipe 및 Rainfall 모델과 각각 1:N 관계 설정
 
@@ -122,9 +123,6 @@
 
 <br>
 
-## 데이터 수집 흐름 (10분 마다 자동 크롤링)
-- Git action과 yml파일을 이용하여 일정 기간마다 자동으로 작성해둔 크롤러를 동작
-- 해당 크롤러에는 작동 시점부터 이전 10분의 데이터를 요청하도록 설계되어있으며 이를 로컬 API DB로 저장
 
 ## 🎈 서비스 API 결과 (로컬환경)
 ![team_h_01_api_result](https://user-images.githubusercontent.com/96563183/176873896-2dabc19a-6e79-4cb9-9fe9-1a978fd6be83.png)
