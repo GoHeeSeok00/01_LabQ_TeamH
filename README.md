@@ -17,7 +17,7 @@
 
 <br>
 
-## 🛠 기술 스택
+## 🛠 사용 기술
 
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white">
 
@@ -26,6 +26,10 @@
 <img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=aws&logoColor=white">
 
 <img src="https://img.shields.io/badge/MySQL-232F3E?style=for-the-badge&logo=MySQL&logoColor=white">
+
+<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
+
+<img src="https://img.shields.io/badge/Github Actions-000000?style=for-the-badge&logo=Github Actions&logoColor=white">
 
 
 <br>
