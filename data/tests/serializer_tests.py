@@ -3,9 +3,8 @@ from datetime import datetime as for_strptime
 
 from django.test import TestCase, Client
 
-from ..models import SewerPipe, Rainfall, GuName
+from ..models import SewerPipe, Rainfall, GuName, SewerPipeBoxInfo
 from ..serializers import SewerPipeModelSerializer, RainfallModelSerializer, GuNameModelSerializer
-from ..views import RainfallAndSewerPipeInfoApiView
 
 class SerializerTestCase(TestCase):
     '''
@@ -24,9 +23,27 @@ class SerializerTestCase(TestCase):
         self.gu_01 = GuName.objects.create(gubn='01', name='종로구')
         self.gu_02 = GuName.objects.create(gubn='15', name='양천구')
         
+        '''샘플 SewerPipeBoxInfo 데이터 생성'''
+        self.sewer_pipe_box_info_01 = SewerPipeBoxInfo.objects.create(
+            idn = '01-0003',
+            box_height = 2.1,
+        )
+        self.sewer_pipe_box_info_02 = SewerPipeBoxInfo.objects.create(
+            idn = '01-0004',
+            box_height = 1.8,
+        )
+        self.sewer_pipe_box_info_03 = SewerPipeBoxInfo.objects.create(
+            idn = '15-0006',
+            box_height = 2.6,
+        )
+        self.sewer_pipe_box_info_04 = SewerPipeBoxInfo.objects.create(
+            idn = '15-0007',
+            box_height = 2.4,
+        )
+
         '''샘플 SewerPipe 데이터 생성'''
         self.sewer_pipe_01 = SewerPipe.objects.create(
-            idn = '01-0003',
+            idn = self.sewer_pipe_box_info_01,
             gubn = self.gu_01,
             gubn_nam = '종로',
             mea_ymd = '2021-12-02 01:12:00',
@@ -34,7 +51,7 @@ class SerializerTestCase(TestCase):
             sig_sta = '통신양호',
         )
         self.sewer_pipe_02 = SewerPipe.objects.create(
-            idn = '01-0004',
+            idn = self.sewer_pipe_box_info_02,
             gubn = self.gu_01,
             gubn_nam = '종로',
             mea_ymd = '2021-12-02 01:12:00',
@@ -42,7 +59,7 @@ class SerializerTestCase(TestCase):
             sig_sta = '통신양호',
         )
         self.sewer_pipe_03 = SewerPipe.objects.create(
-            idn = '15-0006',
+            idn = self.sewer_pipe_box_info_03,
             gubn = self.gu_02,
             gubn_nam = '양천',
             mea_ymd = '2021-12-02 01:12:00',
@@ -50,7 +67,7 @@ class SerializerTestCase(TestCase):
             sig_sta = '통신양호',
         )
         self.sewer_pipe_04 = SewerPipe.objects.create(
-            idn = '15-0007',
+            idn = self.sewer_pipe_box_info_04,
             gubn = self.gu_02,
             gubn_nam = '양천',
             mea_ymd = '2021-12-02 01:12:00',
@@ -103,7 +120,13 @@ class SerializerTestCase(TestCase):
         obj = SewerPipeModelSerializer(pipe)
         obj_fields = list(obj.fields)
 
-        self.assertEqual(obj_fields, ['idn', 'mea_wal'])
+        self.assertEqual(obj_fields, ['idn', 'mea_wal', 'alert_result'])
+    
+    def test_sewer_pipe_get_alert_result_method(self):
+        '''SewerPipeModelSerializer의 get_alert_result 메소드 Test'''
+        alert = SewerPipeModelSerializer.get_alert_result(self, self.sewer_pipe_01)
+        
+        self.assertEqual(alert, '안전')
         
     def test_rainfall_model_serializer(self):
         '''RainfallModelSerializer Test'''
@@ -112,7 +135,12 @@ class SerializerTestCase(TestCase):
         obj = RainfallModelSerializer(rainfall)
         obj_fields = list(obj.fields)
 
-        self.assertEqual(obj_fields, ['raingauge_name', 'rainfall10'])
+        self.assertEqual(obj_fields, ['raingauge_name', 'rainfall10', 'alert_result'])
+    def test_rainfall_get_alert_result_method(self):
+        '''RainfallModelSerializer의 get_alert_result 메소드 Test'''
+        alert = RainfallModelSerializer.get_alert_result(self, self.rainfall_01)
+        
+        self.assertEqual(alert, '맑음')
     
     def test_gu_name_model_serializer(self):
         '''GuNameModelSerializer Test'''
@@ -152,9 +180,9 @@ class SerializerTestCase(TestCase):
             mea_ymd__lt=datetime_info + datetime.timedelta(minutes=1)
             )
 
-        self.assertEqual(sewer_pipe_objs[0].idn, '01-0003')
+        self.assertEqual(sewer_pipe_objs[0].idn, self.sewer_pipe_box_info_01)
         self.assertEqual(sewer_pipe_objs[0].mea_wal, 0.11)
-        self.assertEqual(sewer_pipe_objs[1].idn, '01-0004')
+        self.assertEqual(sewer_pipe_objs[1].idn, self.sewer_pipe_box_info_02)
         self.assertEqual(sewer_pipe_objs[1].mea_wal, 0.12)
     
     

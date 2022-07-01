@@ -3,7 +3,7 @@ import json
 from django.test import TestCase, Client
 from django.urls import resolve
 
-from ..models import SewerPipe, Rainfall, GuName
+from ..models import SewerPipe, Rainfall, GuName, SewerPipeBoxInfo
 from ..views import RainfallAndSewerPipeInfoApiView
 
 class ViewTestCase(TestCase):
@@ -23,9 +23,27 @@ class ViewTestCase(TestCase):
         self.gu_01 = GuName.objects.create(gubn='01', name='종로구')
         self.gu_02 = GuName.objects.create(gubn='15', name='양천구')
         
+        '''샘플 SewerPipeBoxInfo 데이터 생성'''
+        self.sewer_pipe_box_info_01 = SewerPipeBoxInfo.objects.create(
+            idn = '01-0003',
+            box_height = 2.1,
+        )
+        self.sewer_pipe_box_info_02 = SewerPipeBoxInfo.objects.create(
+            idn = '01-0004',
+            box_height = 1.8,
+        )
+        self.sewer_pipe_box_info_03 = SewerPipeBoxInfo.objects.create(
+            idn = '15-0006',
+            box_height = 2.6,
+        )
+        self.sewer_pipe_box_info_04 = SewerPipeBoxInfo.objects.create(
+            idn = '15-0007',
+            box_height = 2.4,
+        )
+
         '''샘플 SewerPipe 데이터 생성'''
         self.sewer_pipe_01 = SewerPipe.objects.create(
-            idn = '01-0003',
+            idn = self.sewer_pipe_box_info_01,
             gubn = self.gu_01,
             gubn_nam = '종로',
             mea_ymd = '2021-12-02 01:12:00',
@@ -33,7 +51,7 @@ class ViewTestCase(TestCase):
             sig_sta = '통신양호',
         )
         self.sewer_pipe_02 = SewerPipe.objects.create(
-            idn = '01-0004',
+            idn = self.sewer_pipe_box_info_02,
             gubn = self.gu_01,
             gubn_nam = '종로',
             mea_ymd = '2021-12-02 01:12:00',
@@ -41,7 +59,7 @@ class ViewTestCase(TestCase):
             sig_sta = '통신양호',
         )
         self.sewer_pipe_03 = SewerPipe.objects.create(
-            idn = '15-0006',
+            idn = self.sewer_pipe_box_info_03,
             gubn = self.gu_02,
             gubn_nam = '양천',
             mea_ymd = '2021-12-02 01:12:00',
@@ -49,7 +67,7 @@ class ViewTestCase(TestCase):
             sig_sta = '통신양호',
         )
         self.sewer_pipe_04 = SewerPipe.objects.create(
-            idn = '15-0007',
+            idn = self.sewer_pipe_box_info_04,
             gubn = self.gu_02,
             gubn_nam = '양천',
             mea_ymd = '2021-12-02 01:12:00',
