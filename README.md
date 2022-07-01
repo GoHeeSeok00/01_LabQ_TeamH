@@ -122,6 +122,9 @@
 
 <br>
 
+## 데이터 수집 흐름 (10분 마다 자동 크롤링)
+- Git action과 yml파일을 이용하여 일정 기간마다 자동으로 작성해둔 크롤러를 동작
+- 해당 크롤러에는 작동 시점부터 이전 10분의 데이터를 요청하도록 설계되어있으며 이를 로컬 API DB로 저장
 
 ## 🎈 서비스 API 결과 (로컬환경)
 ![team_h_01_api_result](https://user-images.githubusercontent.com/96563183/176873896-2dabc19a-6e79-4cb9-9fe9-1a978fd6be83.png)
