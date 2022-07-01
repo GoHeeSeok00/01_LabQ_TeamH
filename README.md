@@ -67,7 +67,7 @@
 
 | URL | Method | 논리적 이름 | 물리적 이름 | Permission | 기능 |
 | --- | --- | --- | --- | --- | --- |
-| /api/data/v1/rainfall-and-drainpipe-info/<gubn>/<datetime_info>/ | `GET` | 강우량 및 하수관로 정보 | rainfall_and_sewerpipe_info | Allow |지역구 코드와 날짜와 시간 정보를 요청인자로 요청받으면 지역구별 강우량, 하수관로 수위 데이터를 응답 |
+| /api/data/v1/rainfall-and-drainpipe-info/\<gubn>/<datetime_info>/ | `GET` | 강우량 및 하수관로 정보 | rainfall_and_sewerpipe_info | Allow |지역구 코드와 날짜와 시간 정보를 요청인자로 요청받으면 지역구별 강우량, 하수관로 수위 데이터를 응답 |
 
 - **URL 설정 의도** : 서비스의 기획 의도와 맞게 gubn, datetime_info 요청인자를 옵셔널 하게 사용하는게 아니라 요청인자를 리소스로 식별하기 위해 Path Variable로 URL을 설정했습니다.
 
