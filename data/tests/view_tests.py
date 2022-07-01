@@ -115,7 +115,7 @@ class ViewTestCase(TestCase):
     def test_url_resolves_to_rain_fall_and_sewer_pipe_api_view(self):
         '''url과 view가 잘 매치되었는지 Test'''
 
-        found = resolve('/api/data/v1/rainfall-and-drainpipe-info/<gubn>/<datetime_info>/')
+        found = resolve('/api/data/v1/rainfall-and-sewerpipe-info/<gubn>/<datetime_info>/')
 
         self.assertEqual(found.func.__name__, RainfallAndSewerPipeInfoApiView.as_view().__name__)
 
@@ -131,7 +131,7 @@ class ViewTestCase(TestCase):
     def test_rain_fall_and_sewer_pipe_api_view_get_method(self):
         '''RainfallAndSewerPipeInfoApiView으로 GET 요청 TEST'''
 
-        response = self.client.get('/api/data/v1/rainfall-and-drainpipe-info/01/202112020112/')
+        response = self.client.get('/api/data/v1/rainfall-and-sewerpipe-info/01/202112020112/')
         response_json = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
