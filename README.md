@@ -55,7 +55,7 @@
 <br>
 
 
-## DB Modeling
+## 🛠 DB Modeling
 ![Untitled](https://user-images.githubusercontent.com/95380638/176635745-467ca0d2-c75f-44b5-9607-28202a1dd657.png)
 - **SewerPipe 모델** : 서울시 하수관로 수위 현황 데이터 저장 
 - **Rainfall 모델** : 서울시 강우량 정보 데이터 저장
@@ -64,16 +64,64 @@
 
 <br>
 
-## API 개발 내역
-| Method | Request                                               | URL                                                                              |
-|--------|-------------------------------------------------------|----------------------------------------------------------------------------------|
-| GET    | 서울시 하수관로 수위 현황과 강우량 정보 데이터를 수집 | http://127.0.0.1:8000/api/data/v1/rainfall-and-drainpipe-info/\<gubn\>/\<datetime_info\>/ |
+## 📑 API 명세서
+
+| URL | Method | 논리적 이름 | 물리적 이름 | Permission | 기능 |
+| --- | --- | --- | --- | --- | --- |
+| /api/data/v1/rainfall-and-drainpipe-info/<gubn>/<datetime_info>/ | `GET` | 강우량 및 하수관로 정보 | rainfall_and_sewerpipe_info | Allow |지역구 코드와 날짜와 시간 정보를 요청인자로 요청받으면 지역구별 강우량, 하수관로 수위 데이터를 응답 |
 
 - **URL 설정 의도** : 서비스의 기획 의도와 맞게 gubn, datetime_info 요청인자를 옵셔널 하게 사용하는게 아니라 요청인자를 리소스로 식별하기 위해 Path Variable로 URL을 설정했습니다.
- 
- 
+
+
 <br>
 
 
-## 서비스 API 결과 (로컬환경)
+### 요청인자
+
+| 변수명 | 타입 | 변수설명 | 값설명 |
+| --- | --- | --- | --- |
+| `gubn` | String(필수) | 지역구 코드 | 01 ~ 25 (한자리 수는 앞에 0을 붙여 2자리로 만들어줘야 합니다) |
+| `datetime_info` | String(필수) | 측정일자 | YYYYMMDDHHmm (연월일시분) |
+
+
+<br>
+
+
+### 출력값
+
+| 출력명 | 출력설명 |
+| --- | --- |
+| `gubn` | 지역구 식별 코드 |
+| `name` | 지역구 이름 |
+| `rainfall_data` | 강우량 데이터 (json) |
+| `raingauge_name` | 강우량계명 |
+| `rainfall10` | 10분 우량 정보 |
+| `sewer_pipe_data` | 하수관로 데이터(json) |
+| `idn` | 하수관로 식별 코드 |
+| `mea_wal` | 하수관로 수위 |
+| `alert_result` | 강우량, 하수관로 수위에 따른 정보 |
+
+
+<br>
+
+
+`alert_result` 추가정보
+
+- 10분 강우량
+    - 5이상 : 강우(천둥, 번개 동반)
+    - 2.5 이상 : 강우
+    - 1.5 이상 : 많은 비
+    - 0.5 이상 : 소나기
+    - 0.1 이상 : 구름 조금
+    - 맑음
+- 하수관로 (하수관로 수위를 박스 높이로 나눈 비율)
+    - 90% 이상 : 비상
+    - 50% 이상 : 위험
+    - 안전
+
+
+<br>
+
+
+## 🎈 서비스 API 결과 (로컬환경)
 ![team_h_01_api_result](https://user-images.githubusercontent.com/96563183/176873896-2dabc19a-6e79-4cb9-9fe9-1a978fd6be83.png)
