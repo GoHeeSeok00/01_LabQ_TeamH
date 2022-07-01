@@ -11,24 +11,23 @@ class SewerPipeModelSerializer(ModelSerializer):
 
     데이터 출력 예시와 동일하게 고유번호, 측정 수위 필드만 출력
 
-    추가로 하수관로 수위 기준을 정하고 수위값에 따라 상태를 응답해주려고 했으나, 
-    수위계 박스높이 대비 현재수위를 계산한 수위비율을 비교해야 하므로 해당 로직을 주석처리
+    추가로 alert_result 필드를 생성해서 get_alert_result 메소드를 호출했을 때,
+    현재수위인 obj.mea_wal에서 박스높이인 obj.idn.box_height를 나눈값인 수위 비율을 백분율로 계산
+    이후, 수위비율의 값에 따라 수위 상태값을 응답해주는 로직 구성
     '''     
-    
-    '''
     alert_result = serializers.SerializerMethodField()
     def get_alert_result(self, obj):
-        if obj.mea_wal >= 0.1:
-            return "높음"
-        elif obj.mea_wal >= 0.05:
-            return "보통"
+        water_level_ratio = float("%.2f" % ((obj.mea_wal / obj.idn.box_height) * 100))
+        if 90 < water_level_ratio <= 100:
+            return "비상"
+        elif 50 <= water_level_ratio <= 90:
+            return "위험"
         else:
             return "안전"
-    '''        
-    
+
     class Meta:
         model = SewerPipe
-        fields = ['idn', 'mea_wal']
+        fields = ['idn', 'mea_wal', 'alert_result']
 
 
 class RainfallModelSerializer(ModelSerializer):

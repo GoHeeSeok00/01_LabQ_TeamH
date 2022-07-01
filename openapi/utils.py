@@ -160,11 +160,11 @@ def create_guname():
 
 def save_rainfall_data(start, end):
     '''
-    Assignee : 훈희
+        Assignee : 훈희
 
-    강우량 정보를 공공 api에서 가져와서 저장
+        강우량 정보를 공공 api에서 가져와서 저장
 
-    start : 가져올 정보의 시작 점 / end : 가져올 정보의 끝 점
+        start : 가져올 정보의 시작 점 / end : 가져올 정보의 끝 점
     '''
     url = f"http://openapi.seoul.go.kr:8088/{api_authenticate_key}/json/ListRainfallService/{start}/{end}"
     response = requests.get(url)
@@ -280,7 +280,7 @@ def save_sewerpipe_data(start, end, gubn, start_date, end_date):
             print(f"SIG_STA:{SIG_STA}")
             print(f"GUBN:{GUBN}")
 
-            SewerPipe(idn=IDN, gubn_nam=GUBN_NAM, mea_ymd=MEA_YMD, mea_wal=MEA_WAL,
+            SewerPipe(idn_id=IDN, gubn_nam=GUBN_NAM, mea_ymd=MEA_YMD, mea_wal=MEA_WAL,
                       sig_sta=SIG_STA, gubn_id=GUBN).save()
     except:
         print("========================================")
