@@ -1,10 +1,8 @@
-name: CI
+name: Run Scraper - Update data # 워크플로우 이름 지정
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  schedule:
+    - cron:  '*/10 * * * *' # 주기적으로 실행하기 위한 스케줄링 - cron 설정
 
 jobs:
   build:
@@ -35,6 +33,10 @@ jobs:
       run: |
         pipenv install
 
-    # - name: Run Test
-    #   run: |
-    #     pipenv run pytest
+    - name: Run Scraper with python
+      run: |
+        python ./openapi/scraping.py
+      env :
+        DATABASES: ${{ secrets.DATABASES }}
+        django_secret: ${{ secrets.django_secret }}
+        api_authenticate_key: ${{ secrets.api_authenticate_key }}
