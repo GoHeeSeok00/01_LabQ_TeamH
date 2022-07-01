@@ -54,6 +54,17 @@ class GuName(models.Model):
     name = models.CharField(max_length=5)        
 
 
+class SewerPipeBoxInfo(models.Model):
+    '''
+    Assignee :희석
 
+    하수관로의 고유번호에 따른 박스정보를 담는 모델입니다.
+
+    필드 정보
+    idn : 하수관로 고유 번호를 담는 필드로 pk 설정이 되어있습니다.
+    box_height : 박스 높이 정보 필드로 소수점을 사용합니다.
+    '''
+    idn = models.CharField("하수관로 고유번호", max_length=10, primary_key=True)
+    box_height = models.FloatField("박스 높이")
 
 
