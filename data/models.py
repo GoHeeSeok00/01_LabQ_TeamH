@@ -10,7 +10,7 @@ class SewerPipe(models.Model):
     mea_ymd는 날짜 형태로 DateTimeField 설정
     mea_wal는 소수점으로 FloatField 설정
 
-    idn : 고유번호 | gubn : 구분코드 | gubn_nam : 구분명 | mea_ynd : 측정일자 | mea_wal : 측정수위 | sig_sta : 통신상태
+    idn : 고유번호 | gubn : 구분코드 | gubn_nam : 구분명 | mea_ymd : 측정일자 | mea_wal : 측정수위 | sig_sta : 통신상태
     '''
     idn = models.ForeignKey('SewerPipeBoxInfo', on_delete=models.SET_NULL, null=True, related_name='box_info')
     gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='sewer_pipe')
