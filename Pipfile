@@ -8,6 +8,8 @@ django = "~=3.2.10"
 djangorestframework = "*"
 requests = "*"
 beautifulsoup4 = "*"
+pymysql = "*"
+mysqlclient = "*"
 
 [dev-packages]
 
