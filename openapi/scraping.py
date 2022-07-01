@@ -3,8 +3,7 @@ from datetime import datetime
 
 now = datetime.now()
 ''' print(now_str) 2022-07-01 17:46:11 '''
-now_str = now.strftime('%Y-%m-%d %H:%M:%S')
-
+now_str = now.strftime('%Y%m%d%H%M')
 
 ''' 
     Assignee : 훈희
@@ -14,12 +13,9 @@ now_str = now.strftime('%Y-%m-%d %H:%M:%S')
     비어있는 값이 있어서 위와 같이 표현
 
 '''
-end_hour = int(
-    now_str[0] + now_str[1] + now_str[2] + now_str[3] + now_str[5] + now_str[6] + now_str[8] + now_str[9] + now_str[
-        11] + now_str[12])
+end_hour = int(now_str)
 
-start_hour = end_hour-1
+start_hour = end_hour - 1
 auto_save_sewerpipe_per_10(start_hour, end_hour)
 ''' 10분 마다 47개씩 저장하면 10분마다 저장되는 내용을 다 가져올 수 있음'''
 save_rainfall_data(1, 47)
-
