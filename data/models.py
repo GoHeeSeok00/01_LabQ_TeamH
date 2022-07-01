@@ -1,25 +1,25 @@
 from django.db import models
 
-# Create your models here.
 
+# Create your models here.
 class SewerPipe(models.Model):
     '''
     Assignee : 상백
 
     서울시 하수관로 수위 API 출력값의 출력명과 데이터 형태를 고려해서 설정
-    mea_ynd는 날짜 형태로 DateTimeField 설정
+    mea_ymd는 날짜 형태로 DateTimeField 설정
     mea_wal는 소수점으로 FloatField 설정
 
     idn : 고유번호 | gubn : 구분코드 | gubn_nam : 구분명 | mea_ynd : 측정일자 | mea_wal : 측정수위 | sig_sta : 통신상태
     '''
     idn = models.CharField(max_length=10)
-    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True)   
+    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='sewer_pipe')
     gubn_nam = models.CharField(max_length=5)
-    mea_ynd = models.DateTimeField()
+    mea_ymd = models.DateTimeField()
     mea_wal = models.FloatField()
     sig_sta = models.CharField(max_length=10)
-    
-    
+
+
 class Rainfall(models.Model):
     '''
     Assignee : 상백
@@ -37,7 +37,7 @@ class Rainfall(models.Model):
     gu_name = models.CharField(max_length=5)
     rainfall10 = models.FloatField()
     receive_time = models.DateTimeField()
-    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True)   
+    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='rainfall')
 
 
 class GuName(models.Model):
