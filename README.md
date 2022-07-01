@@ -2,14 +2,14 @@
 
 <br>
 
-## 👩‍💻 Team
+## 👩‍💻 Team H
 - [고희석](https://github.com/GoHeeSeok00)
 - [김훈희](https://github.com/nmdkims)
 - [김민지](https://github.com/my970524)
 - [이정석](https://github.com/sxxk2)
 - [김상백](https://github.com/tkdqor)
 
-- **[Team-H-노션](https://www.notion.so/pre-onboarding-3rd-team-H-03162526802541328690696ec4588fdd)**
+- **[Team-H-노션](https://www.notion.so/a540c56f257746f08d185ac04d3db11c)**
 
 <br>
 
@@ -22,6 +22,11 @@
 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white">
 
 <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=Django&logoColor=white">
+
+<img src="https://img.shields.io/badge/aws-232F3E?style=for-the-badge&logo=aws&logoColor=white">
+
+<img src="https://img.shields.io/badge/MySQL-232F3E?style=for-the-badge&logo=MySQL&logoColor=white">
+
 
 <br>
 
@@ -67,9 +72,12 @@
 
 | URL | Method | 논리적 이름 | 물리적 이름 | Permission | 기능 |
 | --- | --- | --- | --- | --- | --- |
-| /api/data/v1/rainfall-and-drainpipe-info/\<gubn>/<datetime_info>/ | `GET` | 강우량 및 하수관로 정보 | rainfall_and_sewerpipe_info | Allow |지역구 코드와 날짜와 시간 정보를 요청인자로 요청받으면 지역구별 강우량, 하수관로 수위 데이터를 응답 |
+| /api/data/v1/rainfall-and-sewerpipe-info/\<gubn>/<datetime_info>/ | `GET` | 강우량 및 하수관로 정보 | rainfall_and_sewerpipe_info | AllowAny |지역구 코드와 날짜와 시간 정보를 요청인자로 요청받으면 지역구별 강우량, 하수관로 수위 데이터를 응답 |
+| /openapi/data/save-previous-sewerpipe-data/<start_date>/<end_date>/ | `GET` | 하수관로 데이터 요청 및 저장 | save-previous-sewerpipe-data | IsAdminUser | open api에 요청을 보내서 하수관로 데이터를 받고 저장 |
+| /openapi/data/save-previous-rainfall-data/<start_date>/<end_date>/ | `GET` | 강우량 데이터 요청 및 저장 | ave-previous-rainfall-data | IsAdminUser | open api에 요청을 보내서 강우량 데이터를 받고 저장 | 
 
-- **URL 설정 의도** : 서비스의 기획 의도와 맞게 gubn, datetime_info 요청인자를 옵셔널 하게 사용하는게 아니라 요청인자를 리소스로 식별하기 위해 Path Variable로 URL을 설정했습니다.
+- **URL 설정 의도** <br>
+서비스의 기획 의도와 맞게 gubn, datetime_info 요청인자를 옵셔널 하게 사용하는게 아니라 요청인자를 리소스로 식별하기 위해 Path Variable로 URL을 설정했습니다. open api에 요청을 보낼때도 필수 인자들이기 때문에 Path Variable로 URL을 설정했습니다.
 
 
 <br>
@@ -81,6 +89,8 @@
 | --- | --- | --- | --- |
 | `gubn` | String(필수) | 지역구 코드 | 01 ~ 25 (한자리 수는 앞에 0을 붙여 2자리로 만들어줘야 합니다) |
 | `datetime_info` | String(필수) | 측정일자 | YYYYMMDDHHmm (연월일시분) |
+|`start_date` | String(필수) | 요청 데이터의 시작점 | YYYYMMDDHH | 
+| `end_date` | String(필수) | 요청 데이터의 끝점 | YYYYMMDDHH |
 
 
 <br>
@@ -128,9 +138,27 @@
 
 <br>
 
+## 로컬에서 실행하기
+
+```
+1. 로컬에 파이썬 3.9 버전과 pipenv 설치
+2. git clone
+3. clone한 프로젝트 폴더경로에서 `pipenv install` 명령어 실행
+4. `pipenv shell`명령어로 가상환경 접속
+```
+
 
 ## ⛓ 배포
 <img width="466" alt="스크린샷 2022-07-01 오후 4 48 42" src="https://user-images.githubusercontent.com/83942213/176887716-0533284e-c5b9-4d1c-bc1c-6b5f25ce74fd.png">
 
 데이터베이스는 AWS RDS MySQL서버로 배포하였고,<br>
 API서버는 AWS EC2로 배포하였습니다.
+
+## DB 업데이트 자동화
+저희 Open Api로 데이터를 요청하여 받고, 처리하여 클라이언트에게 제공합니다.<br>
+Open Api 서버에 새로 추가되는 최신 데이터도 제공할 수 있도록 새로운 데이터를 요청하고 저장하는 과정을 자동화하였습니다.
+
+## Test Case
+- Unittest 
+- 장고에서 제공하는 기능 외에 직접 작성한 Serialize, View에 대해 테스트 진행
+- 8개의 테스트 케이스 모두 통과
