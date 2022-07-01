@@ -2,21 +2,18 @@ from django.db import models
 
 
 # Create your models here.
-
 class SewerPipe(models.Model):
     '''
     Assignee : 상백
 
     서울시 하수관로 수위 API 출력값의 출력명과 데이터 형태를 고려해서 설정
-    mea_ynd는 날짜 형태로 DateTimeField 설정
+    mea_ymd는 날짜 형태로 DateTimeField 설정
     mea_wal는 소수점으로 FloatField 설정
 
-    idn : 고유번호 | gubn : 구분코드 | gubn_nam : 구분명 | mea_ynd : 측정일자 | mea_wal : 측정수위 | sig_sta : 통신상태
+    idn : 고유번호 | gubn : 구분코드 | gubn_nam : 구분명 | mea_ymd : 측정일자 | mea_wal : 측정수위 | sig_sta : 통신상태
     '''
-    idn = models.CharField(max_length=10)
-
-    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='sewer_pipe')   
-
+    idn = models.ForeignKey('SewerPipeBoxInfo', on_delete=models.SET_NULL, null=True, related_name='box_info')
+    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='sewer_pipe')
     gubn_nam = models.CharField(max_length=5)
     mea_ymd = models.DateTimeField()
     mea_wal = models.FloatField()
@@ -40,9 +37,7 @@ class Rainfall(models.Model):
     gu_name = models.CharField(max_length=5)
     rainfall10 = models.FloatField()
     receive_time = models.DateTimeField()
-
-    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='rainfall')   
-
+    gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='rainfall')
 
 
 class GuName(models.Model):
@@ -55,5 +50,21 @@ class GuName(models.Model):
     gubn 필드는 primary_key로 설정
     name 필드 ex) 강서구, 강남구,,,
     '''
-    gubn = models.CharField(max_length=5, primary_key=True)
-    name = models.CharField(max_length=5)
+    gubn = models.CharField(max_length=5, primary_key=True)    
+    name = models.CharField(max_length=5)        
+
+
+class SewerPipeBoxInfo(models.Model):
+    '''
+    Assignee :희석
+
+    하수관로의 고유번호에 따른 박스정보를 담는 모델입니다.
+
+    필드 정보
+    idn : 하수관로 고유 번호를 담는 필드로 pk 설정이 되어있습니다.
+    box_height : 박스 높이 정보 필드로 소수점을 사용합니다.
+    '''
+    idn = models.CharField("하수관로 고유번호", max_length=10, primary_key=True)
+    box_height = models.FloatField("박스 높이")
+
+
