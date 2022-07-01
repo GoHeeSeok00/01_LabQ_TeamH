@@ -66,7 +66,13 @@
 ## API 개발 내역
 | Method | Request                                               | URL                                                                              |
 |--------|-------------------------------------------------------|----------------------------------------------------------------------------------|
-| GET    | 서울시 하수관로 수위 현황과 강우량 정보 데이터를 수집 | http://127.0.0.1:8000/api/data/v1/rainfall-and-drainpipe-info/\<gubn\>/\<datetime\>/ |
+| GET    | 서울시 하수관로 수위 현황과 강우량 정보 데이터를 수집 | http://127.0.0.1:8000/api/data/v1/rainfall-and-drainpipe-info/\<gubn\>/\<datetime_info\>/ |
 
-- **URL 설정 의도** : URL에 추가적인 확장 및 수정을 진행하는데 용이하다는 점에서 쿼리 파라미터로 Request URL 설정 진행
+- **URL 설정 의도** : 서비스의 기획 의도와 맞게 gubn, datetime_info 요청인자를 옵셔널 하게 사용하는게 아니라 요청인자를 리소스로 식별하기 위해 Path Variable로 URL을 설정했습니다.
+ 
+ 
+<br>
 
+
+## 서비스 API 결과 (로컬환경)
+![team_h_01_api_result](https://user-images.githubusercontent.com/96563183/176873896-2dabc19a-6e79-4cb9-9fe9-1a978fd6be83.png)
