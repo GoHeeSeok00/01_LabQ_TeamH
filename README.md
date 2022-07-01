@@ -124,3 +124,13 @@
 
 ## 🎈 서비스 API 결과 (로컬환경)
 ![team_h_01_api_result](https://user-images.githubusercontent.com/96563183/176873896-2dabc19a-6e79-4cb9-9fe9-1a978fd6be83.png)
+
+
+<br>
+
+
+## ⛓ 배포
+<img width="466" alt="스크린샷 2022-07-01 오후 4 48 42" src="https://user-images.githubusercontent.com/83942213/176887716-0533284e-c5b9-4d1c-bc1c-6b5f25ce74fd.png">
+
+데이터베이스는 AWS RDS MySQL서버로 배포하였고,<br>
+API서버는 AWS EC2로 배포하였습니다.
