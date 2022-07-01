@@ -162,8 +162,11 @@
 ## ⛓ 배포
 <img width="466" alt="스크린샷 2022-07-01 오후 4 48 42" src="https://user-images.githubusercontent.com/83942213/176887716-0533284e-c5b9-4d1c-bc1c-6b5f25ce74fd.png">
 
+#### 배포 url: [13.125.119.226:8000/](http://13.125.119.226:8000/) (기본 url은 404)
+
 데이터베이스는 AWS RDS MySQL서버로 배포하였고,<br>
-API서버는 AWS EC2로 배포하였습니다.
+API서버는 AWS EC2로 배포하였습니다. <br>
+
 
 
 <br>
@@ -180,4 +183,4 @@ Open Api 서버에 새로 추가되는 최신 데이터도 제공할 수 있도�
 ## Test Case
 - Unittest 
 - 장고에서 제공하는 기능 외에 직접 작성한 Serialize, View에 대해 테스트 진행
-- 8개의 테스트 케이스 모두 통과
+- 10개의 테스트 케이스 모두 통과
