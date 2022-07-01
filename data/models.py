@@ -12,7 +12,7 @@ class SewerPipe(models.Model):
 
     idn : 고유번호 | gubn : 구분코드 | gubn_nam : 구분명 | mea_ynd : 측정일자 | mea_wal : 측정수위 | sig_sta : 통신상태
     '''
-    idn = models.CharField(max_length=10)
+    idn = models.ForeignKey('SewerPipeBoxInfo', on_delete=models.SET_NULL, null=True, related_name='box_info')
     gubn = models.ForeignKey('GuName', on_delete=models.SET_NULL, null=True, related_name='sewer_pipe')
     gubn_nam = models.CharField(max_length=5)
     mea_ymd = models.DateTimeField()

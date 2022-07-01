@@ -280,7 +280,7 @@ def save_sewerpipe_data(start, end, gubn, start_date, end_date):
             print(f"SIG_STA:{SIG_STA}")
             print(f"GUBN:{GUBN}")
 
-            SewerPipe(idn=IDN, gubn_nam=GUBN_NAM, mea_ymd=MEA_YMD, mea_wal=MEA_WAL,
+            SewerPipe(idn_id=IDN, gubn_nam=GUBN_NAM, mea_ymd=MEA_YMD, mea_wal=MEA_WAL,
                       sig_sta=SIG_STA, gubn_id=GUBN).save()
     except:
         print("========================================")
