@@ -58,6 +58,18 @@
 <br>
 
 
+## 로컬에서 실행하기
+
+```
+1. 로컬에 파이썬 3.9 버전과 pipenv 설치
+2. git clone
+3. clone한 프로젝트 폴더경로에서 `pipenv install` 명령어 실행
+4. `pipenv shell`명령어로 가상환경 접속
+```
+
+<br>
+
+
 ## 🛠 DB Modeling
 ![랩큐_ERD_하수관 정보 테이블 추가](https://user-images.githubusercontent.com/96563183/176884532-b78ac91b-9395-4a62-a8b0-54fb9cc431a5.png)
 - **SewerPipe 모델** : 서울시 하수관로 수위 현황 데이터 저장 
@@ -138,14 +150,13 @@
 
 <br>
 
-## 로컬에서 실행하기
 
-```
-1. 로컬에 파이썬 3.9 버전과 pipenv 설치
-2. git clone
-3. clone한 프로젝트 폴더경로에서 `pipenv install` 명령어 실행
-4. `pipenv shell`명령어로 가상환경 접속
-```
+## 💥 서비스 API 결과 (AWS 환경)
+<img width="1920" alt="스크린샷 2022-07-01 오후 10 16 07" src="https://user-images.githubusercontent.com/83942213/176902650-1d0d994b-b09c-46f2-b40d-ab0c95ced59f.png">
+
+
+
+<br>
 
 
 ## ⛓ 배포
@@ -154,9 +165,17 @@
 데이터베이스는 AWS RDS MySQL서버로 배포하였고,<br>
 API서버는 AWS EC2로 배포하였습니다.
 
+
+<br>
+
+
 ## DB 업데이트 자동화
-저희 Open Api로 데이터를 요청하여 받고, 처리하여 클라이언트에게 제공합니다.<br>
+Open Api로 데이터를 요청하여 받고, 처리하여 클라이언트에게 제공합니다.<br>
 Open Api 서버에 새로 추가되는 최신 데이터도 제공할 수 있도록 새로운 데이터를 요청하고 저장하는 과정을 자동화하였습니다.
+
+
+<br>
+
 
 ## Test Case
 - Unittest 
