@@ -13,7 +13,7 @@ class OpenAPISewerPipeSaveApiView(APIView):
 
     날짜를 입력 받아 OpenAPI의 SewerPipe 값을 가져와서 저장하는 API입니다.
     """
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
 
     def get(self, request, start_date, end_date):
         start_date = int(start_date)
@@ -32,7 +32,7 @@ class OpenAPIRainfallSaveApiView(APIView):
 
     날짜를 입력 받아 OpenAPI의 Rainfall 값을 가져와서 저장하는 API입니다.
     """
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
 
     def get(self, request, start, end):
         start = int(start)

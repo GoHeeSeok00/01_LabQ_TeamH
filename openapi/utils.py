@@ -1,7 +1,6 @@
 from labq.my_settings import api_authenticate_key
 import requests
 
-import sqlite3
 import time
 
 ''' 장고에 등록 되어있지 않은 곳에서 장고 모델을 참조하기 위한 준비 '''
@@ -13,6 +12,7 @@ import django
 django.setup()
 
 from data.models import Rainfall, SewerPipe, GuName
+from labq.my_settings import DATABASES
 
 
 def init_data(data_table_name):
@@ -25,12 +25,12 @@ def init_data(data_table_name):
 
     data_table_name : 지울 테이블 이름
     '''
-    conn = sqlite3.connect('../db.sqlite3')
-    cursor = conn.cursor()
+    db = DATABASES
+    cursor = db.cursor()
     cursor.execute(f"DELETE FROM {data_table_name};")
-    conn.commit()
+    db.commit()
     time.sleep(2)
-    conn.close()
+    db.close()
 
 
 def create_guname():
@@ -160,11 +160,11 @@ def create_guname():
 
 def save_rainfall_data(start, end):
     '''
-    Assignee : 훈희
+        Assignee : 훈희
 
-    강우량 정보를 공공 api에서 가져와서 저장
+        강우량 정보를 공공 api에서 가져와서 저장
 
-    start : 가져올 정보의 시작 점 / end : 가져올 정보의 끝 점
+        start : 가져올 정보의 시작 점 / end : 가져올 정보의 끝 점
     '''
     url = f"http://openapi.seoul.go.kr:8088/{api_authenticate_key}/json/ListRainfallService/{start}/{end}"
     response = requests.get(url)
@@ -295,7 +295,7 @@ def save_sewerpipe_data_all_gubn(start_date, end_date):
     '''
        Assignee : 훈희
 
-       하수관 정보를 공공 api에서 가져와서 저장하는 함
+       하수관 정보를 공공 api에서 가져와서 저장하는 함수
        처음 변수인 start와 end는 해당 범위에서 몇개의 정보를 가져올지 설정
        start_date와 end_date 가져올 데이터의 날짜 분 단위까지 작성
 
@@ -312,7 +312,25 @@ def save_sewerpipe_data_all_gubn(start_date, end_date):
         ''' save_sewerpipe_previous_data(start, end, gubn, start_date, end_date): 함수 파라미터 확인 '''
         save_sewerpipe_data(1, total_data_per_hour, gubn, start_date, end_date)
 
+def auto_save_sewerpipe_per_10(start_date, end_date):
+    '''
+       Assignee : 훈희
 
+       하수관 정보를 공공 api에서 가져와서 자동으로 저장하는 함수
+       10분 단위로 설정
+
+       start_date : 가져올 정보의 시작 점 / end_date : 가져올 정보의 끝 점
+    '''
+    gubn_nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17',
+                 '18', '19', '20', '21', '22', '23', '24', '25']
+    sewer_pipe_count = [4, 5, 3, 7, 12, 14, 8, 1, 2, 9, 11, 8, 11, 20, 12, 12, 13, 8, 12, 3, 6, 7, 21, 2, 4]
+
+    for i, gubn_num in enumerate(gubn_nums):
+        gubn = gubn_num
+        total_data_per_10 = (end_date - start_date + 1) * sewer_pipe_count[i] * 10
+
+        ''' save_sewerpipe_previous_data(start, end, gubn, start_date, end_date): 함수 파라미터 확인 '''
+        save_sewerpipe_data(1, total_data_per_10, gubn, start_date, end_date)
 '''
     *** 초기 data_guname 테이블 생성 *** 
     data_guname 초기화 후 생성
